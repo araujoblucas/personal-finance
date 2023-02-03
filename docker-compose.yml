@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+    app:
+        build: .
+        container_name: personal-finance
+        depends_on:
+            - db
+        volumes:
+            - ./:/var/www
+        networks:
+            - personal-finance-network
+    db:
+        image: mysql:latest
+        container_name: database
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: false
+            MYSQL_DATABASE: test_db
+            MYSQL_PASSWORD: pass
+        volumes:
+            - personal-finance-db:/var/lib/mysql
+        networks:
+            - personal-finance-network
+    nginx:
+        image: nginx:alpine
+        container_name: web-server
+        restart: unless-stopped
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/nginx:/etc/nginx/conf.d/
+        networks:
+            - personal-finance-network
+
+volumes:
+    personal-finance-db:
+
+networks:
+    personal-finance-network:
+        driver: bridge
