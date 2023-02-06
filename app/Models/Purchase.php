@@ -24,6 +24,10 @@ class Purchase extends Model
         'monthly_id'
     ];
 
+    protected $casts = [
+        'is_paid' => 'boolean'
+    ];
+
     protected $dates = [
         'reference', 'updated_at', 'created_at'
     ];

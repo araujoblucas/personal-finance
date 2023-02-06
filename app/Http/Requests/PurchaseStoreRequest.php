@@ -47,7 +47,6 @@ class PurchaseStoreRequest extends FormRequest
         if (! empty($this->get('price_of_installments'))) {
             $this->merge([
                 'price_of_installments' => Str::replace(',', '.', $price),
-                'is_paid' => $this->is_paid == "true" || $this->is_paid ? 1 : 0,
             ]);
         }
     }
