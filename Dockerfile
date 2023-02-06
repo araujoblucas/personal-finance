@@ -1,5 +1,12 @@
 FROM php:8.1-fpm
 
+RUN apt-get update && \
+ apt-get install -y \
+    nodejs npm
+
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
+ apt-get install -y nodejs
+
 # Arguments defined in docker-compose.yml
 ARG user
 ARG uid
@@ -39,6 +46,8 @@ WORKDIR /var/www
 
 USER $user
 RUN composer install --no-interaction
+RUN npm install
+RUN npm run build
 
 RUN echo "memory_limit=1024M" >> /usr/local/etc/php/conf.d/php.ini
 RUN echo "allow_url_fopen=on" >> /usr/local/etc/php/conf.d/php.ini
