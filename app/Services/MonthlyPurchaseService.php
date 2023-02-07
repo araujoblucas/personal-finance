@@ -71,7 +71,7 @@ class MonthlyPurchaseService
 
     public function getUnsertedMonthlyPurchases()
     {
-        return Monthly::where('last_inserted_date' > now()->endOfMonth())
+        return Monthly::where('last_inserted_date', "<", now()->firstOfMonth())
             ->orWhere('last_inserted_date', null)
             ->get();
     }
