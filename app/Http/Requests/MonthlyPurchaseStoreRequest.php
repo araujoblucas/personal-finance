@@ -42,6 +42,8 @@ class MonthlyPurchaseStoreRequest extends FormRequest
         $price = $this->get('price');
 
         $this->merge([
+            'is_paid' => ($this->is_paid == 'true' || $this->is_paid ) ? 1 : 0,
+            'same_price' => ($this->is_paid == 'true' || $this->is_paid ) ? 1 : 0,
             'price' => Str::replace(',', '.', $price)
         ]);
     }
