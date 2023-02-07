@@ -24,7 +24,6 @@ class ListUnsertedController extends Controller
     {
         $purchases = $this->monthlyPurchaseService->getUnsertedMonthlyPurchases();
 
-        dd($purchases);
-        return redirect()->route('monthly.create');
+        return view('monthly.list-unserted', compact('purchases'));
     }
 }
