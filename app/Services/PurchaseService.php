@@ -24,7 +24,7 @@ class PurchaseService
 
     public function update(int $purchaseId, array $validated)
     {
-        $validated['reference'] = $this->transformDateForDMY($validated['reference']);
+        $validated['reference'] = $this->formatToDatabase($validated['reference']);
         Purchase::where('id', $purchaseId)->update($validated);
     }
 
