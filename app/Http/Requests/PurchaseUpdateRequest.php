@@ -42,7 +42,8 @@ class PurchaseUpdateRequest extends FormRequest
         $price = $this->get('price');
 
         $this->merge([
-            'price' => Str::replace(',', '.', $price)
+            'price' => Str::replace(',', '.', $price),
+            'is_paid' => ($this->is_paid == 'true' || $this->is_paid) ? 1 : 0,
         ]);
     }
 }
