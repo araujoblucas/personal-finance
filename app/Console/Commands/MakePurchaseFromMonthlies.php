@@ -50,6 +50,12 @@ class MakePurchaseFromMonthlies extends Command
                 'monthly_id' => $purchase->id
             ];
 
+            $isNotPaid = ['pix', 'boleto'];
+
+            if (in_array($formatedPurchase['paid_by'], $isNotPaid)) {
+                $formatedPurchase['is_paid'] = false;
+            }
+
             if (filter_var($purchase->same_price, FILTER_VALIDATE_BOOLEAN)) {
                 $formatedPurchase['price'] = $purchase->price;
 
